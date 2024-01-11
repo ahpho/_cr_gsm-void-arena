@@ -54,7 +54,7 @@ public class Gsmarena
         foreach (string mem in mems)
         {
             string[] ss = mem.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (ss.Length != 3) throw new Exception("Parse Error ! Memory.");
+            if (ss.Length < 3) throw new Exception("Parse Error ! Memory.");
             if (!ll.Contains(ss[1]))
                 ll.Add(ss[1]);
         }

@@ -14,10 +14,20 @@ sw.WriteLine("#name\t#count\t#memory\t#chipset\t#cpu_count\t#cpu_freq\t#cpu\t#gp
 int TestCount = 0;
 foreach (DeviceInfo input in inputs)
 {
-    string url = Crawler.GetUrlFromGoogle(input.name);
-    string page = Crawler.GetPageContent(url);
-    
-    DeviceInfo info = Gsmarena.Parse(page);
+    DeviceInfo info = new DeviceInfo(input.name, input.count);
+
+    try
+    {
+        string url = Crawler.GetUrlFromGoogle(input.name);
+        string page = Crawler.GetPageContent(url);
+        if (string.IsNullOrEmpty(page)) throw new Exception("page is empty !");
+        info = Gsmarena.Parse(page);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(string.Format($"[for] Exception, device.name={input.name}, ex={ex}"));
+    }
+
     info.name = input.name;
     info.count = input.count;
     outputs.Add(info);
