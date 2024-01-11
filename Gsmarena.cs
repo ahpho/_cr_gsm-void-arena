@@ -35,10 +35,16 @@ public class Gsmarena
     {
         string ToFind = string.Format($@"data-spec=""{member}"">");
         int index1 = page.IndexOf(ToFind);
-        if (index1 < 0) throw new Exception("Parse Error !");
-        int index2 = page.IndexOf(@"</td>", index1);
-        if (index1 < 0) throw new Exception("Parse Error !");
-        return page.Substring(index1 + ToFind.Length, index2 - index1 - ToFind.Length);
+        if (index1 >= 0)
+        {
+            int index2 = page.IndexOf(@"</td>", index1);
+            if (index1 < 0) throw new Exception("Parse Error !");
+            return page.Substring(index1 + ToFind.Length, index2 - index1 - ToFind.Length);
+        }
+        else
+        {
+            return "error";
+        }
     }
 
     private static string PostProcess_Memory(string memory)
