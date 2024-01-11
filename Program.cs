@@ -14,29 +14,29 @@ sw.WriteLine("#name\t#count\t#memory\t#chipset\t#cpu_count\t#cpu_freq\t#cpu\t#gp
 int TestCount = 0;
 foreach (DeviceInfo input in inputs)
 {
-    DeviceInfo info = new DeviceInfo(input.name, input.count);
+    DeviceInfo d = new DeviceInfo(input.name, input.count);
 
     try
     {
         string url = Crawler.GetUrlFromGoogle(input.name);
         string page = Crawler.GetPageContent(url);
         if (string.IsNullOrEmpty(page)) throw new Exception("page is empty !");
-        info = Gsmarena.Parse(page);
+        d = Gsmarena.Parse(page);
     }
     catch (Exception ex)
     {
         Console.WriteLine(string.Format($"[for] Exception, device.name={input.name}, ex={ex}"));
     }
 
-    info.name = input.name;
-    info.count = input.count;
-    outputs.Add(info);
+    d.name = input.name;
+    d.count = input.count;
+    outputs.Add(d);
 
-    string line = string.Format($"{info.name}\t{info.count}\t{info.memory}\t{info.chipset}\t{info.cpu_count}\t{info.cpu_freq}\t{info.cpu}\t{info.gpu}\t{info.launch}\t{info.price}\t{info.android}");
+    string line = string.Format($"{d.name}\t{d.count}\t{d.memory}\t{d.chipset}\t{d.cpu_count}\t{d.cpu_freq}\t{d.cpu}\t{d.gpu}\t{d.launch}\t{d.price}\t{d.android}");
     sw.WriteLine(line);
     sw.Flush();
 
-    Console.WriteLine(info.name);
+    Console.WriteLine(d.name);
     Thread.Sleep(2000);
 
     if (++TestCount > 10 && false)

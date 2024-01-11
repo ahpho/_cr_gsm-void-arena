@@ -8,27 +8,27 @@ public class Gsmarena
 {
     public static DeviceInfo Parse(string page)
     {
-        DeviceInfo info = new DeviceInfo();
-        info.memory = FindRawMember(page, "internalmemory");
-        info.chipset = FindRawMember(page, "chipset");
-        info.cpu = FindRawMember(page, "cpu");
-        info.gpu = FindRawMember(page, "gpu");
-        info.launch = FindRawMember(page, "year");
-        info.price = FindRawMember(page, "price");
-        info.android = FindRawMember(page, "os");
+        DeviceInfo d = new DeviceInfo();
+        d.memory = FindRawMember(page, "internalmemory");
+        d.chipset = FindRawMember(page, "chipset");
+        d.cpu = FindRawMember(page, "cpu");
+        d.gpu = FindRawMember(page, "gpu");
+        d.launch = FindRawMember(page, "year");
+        d.price = FindRawMember(page, "price");
+        d.android = FindRawMember(page, "os");
 
         // 后处理1：内存
-        info.memory = PostProcess_Memory(info.memory);
+        d.memory = PostProcess_Memory(d.memory);
 
         // 后处理2：CPU数目 & 主频
-        PostProcess_Cpu(info.cpu, out string cpu_count, out string cpu_freq);
-        info.cpu_count = cpu_count;
-        info.cpu_freq = cpu_freq;
+        PostProcess_Cpu(d.cpu, out string cpu_count, out string cpu_freq);
+        d.cpu_count = cpu_count;
+        d.cpu_freq = cpu_freq;
 
         // 后处理3：Price
-        info.price = PostProcess_Price(info.price);
+        d.price = PostProcess_Price(d.price);
 
-        return info;
+        return d;
     }
 
     private static string FindRawMember(string page, string member)

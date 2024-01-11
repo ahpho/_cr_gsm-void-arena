@@ -4,7 +4,7 @@ public class TabHandler
 {
     public static List<DeviceInfo> Read(string inFile)
     {
-        List<DeviceInfo> ret = new List<DeviceInfo>();
+        List<DeviceInfo> ls = new List<DeviceInfo>();
 
         string[] lines = File.ReadAllLines(inFile);
 
@@ -22,9 +22,9 @@ public class TabHandler
                 continue;
             }
 
-            ret.Add(new DeviceInfo(columns[0], columns[1]));
+            ls.Add(new DeviceInfo(columns[0], columns[1]));
         }
 
-        return ret;
+        return ls;
     }
 }
