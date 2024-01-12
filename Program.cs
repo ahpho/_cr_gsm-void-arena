@@ -24,8 +24,8 @@ foreach (string line in lines)
                 name = columns[0];
                 count = columns[1];
                 DeviceInfo d = new DeviceInfo(name, count);
-                string url = Crawler.GetUrlFromGoogle(name);
-                string page = Crawler.GetPageContent(url);
+                string url = WebHelper.GetUrlFromGoogle(name);
+                string page = WebHelper.GetPageContent(url);
                 if (string.IsNullOrEmpty(page)) throw new Exception("page is empty !");
                 d = Gsmarena.Parse(page);
                 d.name = name;

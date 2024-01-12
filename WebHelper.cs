@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Crawler
+public class WebHelper
 {
     private static WebClient _WebClient = new();
 

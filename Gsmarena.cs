@@ -9,13 +9,13 @@ public class Gsmarena
     public static DeviceInfo Parse(string page)
     {
         DeviceInfo d = new DeviceInfo();
-        d.memory = FindRawMember(page, "internalmemory");
-        d.chipset = FindRawMember(page, "chipset");
-        d.cpu = FindRawMember(page, "cpu");
-        d.gpu = FindRawMember(page, "gpu");
-        d.launch = FindRawMember(page, "year");
-        d.price = FindRawMember(page, "price");
-        d.android = FindRawMember(page, "os");
+        d.memory = FindMember(page, "internalmemory");
+        d.chipset = FindMember(page, "chipset");
+        d.cpu = FindMember(page, "cpu");
+        d.gpu = FindMember(page, "gpu");
+        d.launch = FindMember(page, "year");
+        d.price = FindMember(page, "price");
+        d.android = FindMember(page, "os");
 
         // 后处理1：内存
         d.memory = PostProcess_Memory(d.memory);
@@ -31,7 +31,7 @@ public class Gsmarena
         return d;
     }
 
-    private static string FindRawMember(string page, string member)
+    private static string FindMember(string page, string member)
     {
         string ToFind = string.Format($@"data-spec=""{member}"">");
         int index1 = page.IndexOf(ToFind);
